@@ -140,8 +140,17 @@ function showLayerInDebugger(layer) {
 }
 
 
+function extractFileKey(input) {
+    try {
+        const url = new URL(input);
+        const match = url.pathname.match(/\/(?:file|design)\/([a-zA-Z0-9]+)/);
+        if (match) return match[1];
+    } catch (_) {}
+    return input;
+}
+
 async function handleAuditRun() {
-    const fileKey = figmaKeyInput.value.trim();
+    const fileKey = extractFileKey(figmaKeyInput.value.trim());
     const pat = figmaPatInput.value.trim();
 
     if (!fileKey || !pat) {
