@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Design System Audit Tool</title>
+    <!-- Figma-esque typography - Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Configuration -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <svg width="24" height="36" viewBox="0 0 38 57" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M19 28.5V19H9.5C4.25329 19 0 23.2533 0 28.5C0 33.7467 4.25329 38 9.5 38H19V28.5Z" fill="#0ACF83"/>
+                        <path d="M0 9.5C0 4.25329 4.25329 0 9.5 0H19V19H9.5C4.25329 19 0 14.7467 0 9.5Z" fill="#F24E1E"/>
+                        <path d="M38 9.5C38 14.7467 33.7467 19 28.5 19H19V0H28.5C33.7467 0 38 4.25329 38 9.5Z" fill="#FF7262"/>
+                        <path d="M38 28.5C38 33.7467 33.7467 38 28.5 38H19V19H28.5C33.7467 19 38 23.2533 38 28.5Z" fill="#1ABCFE"/>
+                        <path d="M19 47.5C19 52.7467 14.7467 57 9.5 57C4.25329 57 0 52.7467 0 47.5C0 42.2533 4.25329 38 9.5 38H19V47.5Z" fill="#A259FF"/>
+                    </svg>
+                    <h1>Design Audit</h1>
+                </div>
+            </div>
+
+            <div class="sidebar-content">
+                <div class="form-group">
+                    <label for="figma-file-key">Figma File Key</label>
+                    <input type="text" id="figma-file-key" value="demo" placeholder="e.g. Dq123abcXYZ..." autocomplete="off">
+                    <p class="help-text">Use <strong>demo</strong> for a test run, or enter a real file key.</p>
+                </div>
+                <div class="form-group">
+                    <label for="figma-pat">Personal Access Token</label>
+                    <input type="text" id="figma-pat" value="demo" placeholder="figd_..." autocomplete="off">
+                    <p class="help-text">Use <strong>demo</strong> for a test run.</p>
+                </div>
+                <button type="button" class="btn btn-primary" id="btn-run-audit">Run Audit</button>
+
+                <div class="status-container">
+                    <div class="status-indicator">
+                        <div class="dot disconnected" id="status-dot"></div>
+                        <span id="status-text">Ready to connect</span>
+                    </div>
+                    <div id="error-message" class="error-message hidden"></div>
+                </div>
+            </div>
+            <div class="sidebar-footer">
+                <button class="btn btn-secondary" id="btn-download-csv" disabled>
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M14 11v1.5a1.5 1.5 0 01-1.5 1.5h-9A1.5 1.5 0 012 12.5V11M4 7l4 4m0 0l4-4m-4 4V1"/>
+                    </svg>
+                    Export Report (CSV)
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Split Pane View -->
+            <div class="split-pane">
+                <!-- Layers List Pane -->
+                <div class="pane list-pane">
+                    <div class="pane-header">
+                        <h2>Non-Compliant Layers (<span id="layer-count">0</span>)</h2>
+                    </div>
+                    <div class="pane-body" id="layers-list">
+                        <div class="empty-state" id="empty-state">
+                            <div class="empty-icon">✓</div>
+                            <p>No hardcoded values detected.</p>
+                            <span class="empty-subtext">Run an audit to start analyzing layers.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Support Debugger Pane -->
+                <div class="pane debugger-pane">
+                    <div class="pane-header">
+                        <h2>Support Debugger</h2>
+                        <span class="badge" id="debugger-badge">Raw JSON</span>
+                    </div>
+                    <div class="pane-body">
+                        <div class="debugger-placeholder" id="debugger-placeholder">
+                            Select a layer to view its raw JSON geometry and properties.
+                        </div>
+                        <pre><code id="json-debugger" class="json-content hidden"></code></pre>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script type="module" src="./app.js"></script>
+</body>
+</html>
