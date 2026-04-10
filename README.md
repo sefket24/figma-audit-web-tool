@@ -1,6 +1,6 @@
 # Figma REST API Audit Dashboard
 
-**A Support Engineering technical demonstration.**
+**A Support Engineering technical demonstration — built as a hands-on exploration of the Figma REST API.**
 
 This application is a standalone web dashboard designed to query the **Figma REST API (`GET /v1/files/:key`)** and programmatically audit an enterprise design file for "Design Drift." 
 
